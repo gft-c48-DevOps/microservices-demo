@@ -3,6 +3,7 @@ plugins {
     id 'com.github.sherter.google-java-format' version '0.9'
     id 'idea'
     id 'application'
+    id "org.sonarqube" version "4.0.0.2929"
 }
 
 repositories {
@@ -18,11 +19,6 @@ def grpcVersion = "1.55.1"
 def jacksonCoreVersion = "2.15.1"
 def jacksonDatabindVersion = "2.15.1"
 def protocVersion = "3.23.1"
-
-tasks.withType(JavaCompile) {
-    sourceCompatibility = JavaVersion.VERSION_19
-    targetCompatibility = JavaVersion.VERSION_19
-}
 
 ext {
     speed = project.hasProperty('speed') ? project.getProperty('speed') : false
@@ -114,4 +110,11 @@ applicationDistribution.into('bin') {
     from(adService)
     from(adServiceClient)
     fileMode = 0755
+}
+
+sonar {
+  properties {
+    property "sonar.projectKey", "gft-c48-DevOps_microservices-demo_AYhmngIf1ZFVzXWSnYwp"
+    property "sonar.projectName", "microservices-demo"
+  }
 }
